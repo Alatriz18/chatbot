@@ -1,0 +1,131 @@
+{
+  "ciberseguridad": {
+    "titulo": "Políticas de Ciberseguridad y Seguridad de la Información",
+    "contenido": "Conjunto de medidas para proteger sistemas, redes y datos de ataques maliciosos. Incluye protección contra phishing, malware y acceso no autorizado. El departamento de TI es responsable de administrar, mantener y asegurar todos los sistemas de información."
+  },
+  "respaldo": {
+    "titulo": "Política de Respaldo de Información",
+    "contenido": "Los respaldos se almacenan en Office 365 Cloud. Los usuarios son responsables de respaldar su información en OneDrive. TI verifica periódicamente los respaldos. Prohibido almacenar archivos personales en carpetas de trabajo. Servidores: respaldo diario automático a las 08:00 AM con copia externa."
+  },
+  "mantenimiento": {
+    "titulo": "Mantenimiento de Equipos",
+    "contenido": "Mantenimiento preventivo y correctivo al menos una vez al año. TI es responsable de calendarizar mantenimientos, hacer cumplir garantías y evaluar necesidad de reemplazo de equipos obsoletos."
+  },
+  "control aplicaciones": {
+    "titulo": "Control de Instalación de Aplicaciones",
+    "contenido": "Se usan Políticas de Grupo (GPO) para controlar accesos y configuraciones. Usuarios generales no pueden acceder a configuraciones del sistema. Cuentas se desactivan durante vacaciones/permisos mayores a una semana."
+  },
+  "licencias": {
+    "titulo": "Política de Software y Hardware",
+    "contenido": "TI adquiere y legaliza software through Partners autorizados. Software común: Office 365, Kaspersky, Autocad, Anydesk, Power Builder, ZKTECO. Nuevo software debe ser solicitado a TI para evaluación."
+  },
+  "antivirus": {
+    "titulo": "Protección Antivirus y Antimalware",
+    "contenido": "Kaspersky implementado en todas las computadoras. Definiciones de virus actualizadas constantemente. USB autorizados se escanean automáticamente. Equipos infectados se aíslan inmediatamente. Se sigue Procedimiento de Gestión de Incidentes."
+  },
+  "credenciales": {
+    "titulo": "Gestión de Credenciales de Administrador",
+    "contenido": "Credenciales de super usuarios se almacenan de forma segura y encriptada con Criptoforge. Solo accesible por administradores de TI. Documento guardado en la nube fuera de la empresa."
+  },
+  "acceso fisico": {
+    "titulo": "Control de Acceso Físico",
+    "contenido": "Sala de monitoreo y Datacenter: acceso restringido solo para personal de TI. Puerta blindada con control de accesos. Temperatura monitoreada (SITRAD). Personal externo debe ser acompañado por TI y tener autorización formal."
+  },
+  "redes": {
+    "titulo": "Política de Redes y Segmentación",
+    "contenido": "Red segmentada en: Visitas, Corporativa, OT (tecnología operacional) y Aplicaciones móviles. Acceso corporativo exclusivo para equipos de la empresa. VPN requiere autorización del jefe inmediato. Intentos de acceso no autorizado son considerados ataques informáticos."
+  },
+  "acceso sistemas": {
+    "titulo": "Acceso a Sistemas de Información",
+    "contenido": "Sistema CORE (JIREH): cuentas creadas por solicitud del jefe inmediato. Formato: nombre.apellido. Contraseñas deben cambiarse cada 90 días. Credenciales son personales e intransferibles. Desvinculación: TI inactiva cuentas inmediatamente."
+  },
+  "correo": {
+    "titulo": "Política de Correo Corporativo",
+    "contenido": "Solicitud mediante jefe inmediato. Formatos: @nintanga.com.ec o @provefrut.com. Límite de adjuntos: 25MB. Tras desvinculación, cuenta permanece con respuesta automática 15-30 días, luego se inactiva."
+  },
+  "internet": {
+    "titulo": "Política de Uso de Internet",
+    "contenido": "Acceso controlado y gestionado por TI. Niveles de acceso según puesto de trabajo. Portal Office 365 y páginas gubernamentales sin restricción. Empleado es responsable del uso adecuado."
+  },
+  "clasificacion": {
+    "titulo": "Clasificación de la Información",
+    "contenido": "Confidencial: daño grave si se divulga (financieros, personales). Interna: sensible pero menos restrictiva. Pública: sin restricciones. Información confidencial puede requerir autenticación multifactor (MFA)."
+  },
+  "contrasenas": {
+    "titulo": "Política de Contraseñas",
+    "contenido": "Cambio obligatorio cada 90 días. Deben incluir: mayúsculas, minúsculas, números y símbolos. No usar información personal obvia. Autenticación Multifactor (MFA) requerida para accesos críticos."
+  },
+  "sanciones": {
+    "titulo": "Política de Sanciones",
+    "contenido": "Incumplimiento de políticas será sancionado según Reglamento Interno. TI notifica a Desarrollo Humano sobre infracciones para aplicar procedimientos correspondientes."
+  },
+  "casos_soporte": {
+    "hardware": {
+      "titulo": "Problemas de Hardware",
+      "categorias": [
+        "Equipo no enciende",
+        "Pantalla azul/errores de sistema",
+        "Problemas con teclado/mouse",
+        "Rendimiento lento",
+        "Problemas de impresión",
+        "Disco duro lleno",
+        "Otro problema de hardware"
+      ]
+    },
+    "software": {
+      "titulo": "Problemas de Software",
+      "categorias": [
+        "No puedo instalar un programa",
+        "Error al abrir aplicación",
+        "Problema con Office 365",
+        "No puedo acceder a sistema específico",
+        "Software se cierra inesperadamente",
+        "Otro problema de software"
+      ]
+    },
+    "red": {
+      "titulo": "Problemas de Red/Conectividad",
+      "categorias": [
+        "No tengo conexión a internet",
+        "Conexión lenta/intermitente",
+        "No puedo acceder a recursos de red",
+        "Problema con WiFi",
+        "No puedo conectar a VPN",
+        "Otro problema de red"
+      ]
+    },
+    "cuenta": {
+      "titulo": "Problemas de Cuenta/Acceso",
+      "categorias": [
+        "Contraseña bloqueada/olvidada",
+        "No puedo acceder a mi correo",
+        "Necesito acceso a un sistema",
+        "Permisos insuficientes",
+        "Cuenta deshabilitada",
+        "Otro problema de acceso"
+      ]
+    },
+    "correo": {
+      "titulo": "Problemas de Correo Electrónico",
+      "categorias": [
+        "No puedo enviar/recibir correos",
+        "Problema con adjuntos",
+        "Correo marcado como spam",
+        "Falta de espacio en buzón",
+        "Configuración de Outlook",
+        "Otro problema de correo"
+      ]
+    },
+    "telefonia": {
+      "titulo": "Problemas de Telefonía",
+      "categorias": [
+        "Teléfono no funciona",
+        "Problema con llamadas entrantes/salientes",
+        "Configuración de voicemail",
+        "Problema con conferencias",
+        "Teléfono dañado",
+        "Otro problema telefónico"
+      ]
+    }
+  }
+}

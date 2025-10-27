@@ -1,0 +1,201 @@
+{
+  "casos_soporte": {
+    "hardware": {
+      "titulo": "Problemas de Hardware",
+      "categorias": {
+        "no_enciende": {
+          "titulo": "El equipo no enciende",
+          "pasos": [
+            "1. ✅ **Verifica el cable de poder:** Asegúrate de que esté firmemente conectado tanto al computador como a la toma de corriente.",
+            "2. ✅ **Prueba otra toma de corriente:** Conecta el equipo a un enchufe diferente que sepas que funciona.",
+            "3. ✅ **Reinicio forzado:** Mantén presionado el botón de encendido durante 15 segundos para liberar energía residual y vuelve a intentarlo.",
+            "4. ✅ **Si es una laptop:** Revisa que el cargador esté bien conectado y que la luz indicadora de carga se encienda."
+          ],
+          "titulo_confirmacion": "¿Ninguno de estos pasos solucionó el problema?",
+          "opciones_finales": [
+            {
+              "id": "desconectar_todo",
+              "titulo": "Desconectar todos los periféricos",
+              "descripcion": "A veces un dispositivo USB (mouse, teclado, etc.) puede causar un corto e impedir el encendido. Desconecta todo excepto el cable de poder y vuelve a intentarlo."
+            }
+          ]
+        },
+        "impresora": {
+          "titulo": "Problemas con la impresora",
+          "pasos": [
+            "1. ✅ **Revisa conexiones y estado:** Asegúrate de que la impresora esté encendida y conectada a la misma red (Wi-Fi o cable) que tu computador.",
+            "2. ✅ **Verifica consumibles:** Revisa si tiene papel y si los cartuchos de tinta o tóner no están vacíos.",
+            "3. ✅ **Reinicia la impresora:** Apágala, espera 30 segundos y vuelve a encenderla. Este es el paso más efectivo.",
+            "4. ✅ **Revisa la cola de impresión:** En tu computador, ve a 'Configuración > Impresoras' y asegúrate de que no esté 'Sin conexión' o 'En pausa'."
+          ],
+          "titulo_confirmacion": "¿El problema con la impresora persiste?"
+        },
+        "internet_lento": {
+          "titulo": "Internet lento o sin conexión",
+          "pasos": [
+            "1. ✅ **Verifica el Wi-Fi:** Asegúrate de estar conectado a la red Wi-Fi correcta. Intenta desconectarte y volver a conectarte.",
+            "2. ✅ **Prueba con cable:** Si es posible, conecta tu computador directamente con un cable de red (Ethernet) para descartar problemas con el Wi-Fi.",
+            "3. ✅ **Reinicia tu computador:** Un reinicio puede resolver problemas de conexión temporales en tu equipo."
+          ],
+          "titulo_confirmacion": "¿Sigues teniendo problemas con la conexión a internet?"
+        },
+        "equipo_lento": {
+          "titulo": "Mi computador está muy lento",
+          "pasos": [
+            "1. ✅ **Reinicia el equipo:** Es la solución más simple y efectiva. Cierra todos los programas y reinicia el computador.",
+            "2. ✅ **Cierra programas innecesarios:** Revisa qué aplicaciones tienes abiertas y cierra las que no estés utilizando, especialmente navegadores con muchas pestañas.",
+            "3. ✅ **Revisa el Administrador de Tareas:** Presiona `Ctrl + Shift + Esc` para abrirlo. En la pestaña 'Procesos', revisa si algo está usando el 100% de la CPU o Memoria y finaliza esa tarea.",
+            "4. ✅ **Libera espacio en disco:** Asegúrate de tener al menos un 15% de espacio libre en tu disco principal (C:). Un disco lleno ralentiza todo el sistema."
+          ],
+          "titulo_confirmacion": "¿Tu computador sigue funcionando lento?"
+        }
+      }
+    },
+    "software": {
+      "titulo": "Problemas de Software",
+      "categorias": {
+        "contrasena": {
+          "titulo": "No puedo iniciar sesión / Contraseña",
+          "pasos": [
+            "1. ✅ **Revisa el teclado:** Asegúrate de que la tecla 'Bloq Mayús' (Caps Lock) no esté activada y que el idioma del teclado sea el correcto.",
+            "2. ✅ **Verifica el usuario:** Confirma que estás usando el nombre de usuario o correo electrónico correcto para la cuenta.",
+            "3. ✅ **Usa la opción de recuperación:** Si estás seguro de que la contraseña es incorrecta, busca y utiliza el enlace '¿Olvidaste tu contraseña?' o 'Restablecer contraseña' en la pantalla de inicio de sesión."
+          ],
+          "titulo_confirmacion": "¿Aún no puedes acceder a tu cuenta?"
+        },
+        "office": {
+          "titulo": "Problema con Office 365 (Word, Excel, etc.)",
+          "pasos": [
+            "1. ✅ **Reinicia la aplicación:** Cierra completamente el programa que está fallando (Word, Excel, etc.) y vuelve a abrirlo.",
+            "2. ✅ **Reinicia el computador:** Esto soluciona la mayoría de los problemas temporales de software.",
+            "3. ✅ **Verifica tu licencia:** Inicia sesión en www.office.com con tu cuenta de la empresa para asegurar que tu licencia de Office 365 esté activa.",
+            "4. ✅ **Prueba la versión web:** Intenta usar la versión online de la aplicación (en office.com) para ver si el problema también ocurre allí."
+          ],
+          "titulo_confirmacion": "¿El problema con la aplicación de Office continúa?"
+        },
+        "correo": {
+          "titulo": "Correo (Outlook) no envía o recibe",
+          "pasos": [
+            "1. ✅ **Revisa tu conexión a internet:** Asegúrate de tener una conexión estable.",
+            "2. ✅ **Busca el mensaje 'Trabajando sin conexión':** En la parte inferior de Outlook, verifica si aparece este estado. Si es así, ve a la pestaña 'Enviar y recibir' y desactiva la opción 'Trabajar sin conexión'.",
+            "3. ✅ **Revisa la bandeja de salida:** Si los correos no se envían, busca si están atascados en tu 'Bandeja de salida'.",
+            "4. ✅ **Reinicia Outlook:** Cierra completamente la aplicación y vuelve a abrirla."
+          ],
+          "titulo_confirmacion": "¿El problema con tu correo electrónico persiste?"
+        },
+        "vpn": {
+          "titulo": "No me puedo conectar a la VPN",
+          "pasos": [
+            "1. ✅ **Verifica tus credenciales:** Asegúrate de que tu usuario y contraseña de la VPN sean correctos.",
+            "2. ✅ **Reinicia tu conexión a internet:** Desconecta y vuelve a conectar tu Wi-Fi o cable de red.",
+            "3. ✅ **Reinicia el cliente de VPN:** Cierra por completo la aplicación de la VPN y vuelve a iniciarla.",
+            "4. ✅ **Reinicia tu computador:** Un reinicio completo puede resolver conflictos de red que impiden la conexión."
+          ],
+          "titulo_confirmacion": "¿Aún no puedes conectarte a la VPN?"
+        }
+      }
+    },
+    "sistema_jireh": {
+      "titulo": "Problemas con Sistema JIREH",
+      "categorias": {
+        "acceso_jireh": {
+          "titulo": "No puedo acceder al Sistema JIREH",
+          "pasos": [
+            "1. ✅ **Verifica tus credenciales:** Asegúrate de que tu usuario y contraseña sean correctos. Recuerda que el formato de usuario es: nombre.apellido",
+            "2. ✅ **Revisa la conexión a internet:** Confirma que tienes acceso a la red corporativa y a los sistemas internos, para esto debes verificar si tu cable de red esta conectado.",
+            "3. ✅ **Cambia tu contraseña:** Ingresa tu usuario y da clic en el boton cambiar contraseña, acto seguido te pedira que escojas una de las preguntas que ."
+          ],
+          "titulo_confirmacion": "¿Aún no puedes acceder al Sistema JIREH?"
+        },
+        "lentitud_jireh": {
+          "titulo": "El Sistema JIREH está muy lento",
+          "pasos": [
+            "1. ✅ **Verifica tu conexión a internet:** Asegúrate de tener una conexión estable a la red corporativa.",
+            "2. ✅ **Reinicia tu computador:** Un reinicio completo puede resolver problemas temporales de rendimiento."
+          ],
+          "titulo_confirmacion": "¿El sistema sigue funcionando lento?"
+        },
+        "errores_jireh": {
+          "titulo": "Errores en el Sistema JIREH",
+          "pasos": [
+            "1. ✅ **Anota el mensaje de error:** Toma nota exacta del mensaje de error que aparece(PUEDES TOMAR UNA CAPTURA DE PANTALLA), incluyendo cualquier código.",
+            "3. ✅ **Cierra el jireh:** Debes cerrar el Jireh para resolver algun tema de bloqueos o de desconexión.",
+            "3. ✅ **Verifica que estés en la última versión:** Asegúrate de haber actualizado el jireh, si no lo has hecho antes de abrirlo nuevamente."
+          ],
+          "titulo_confirmacion": "¿El error persiste después de estos pasos?"
+        },
+        "funcionalidad_jireh": {
+          "titulo": "Problemas con funcionalidades específicas",
+          "pasos": [
+            "1. ✅ **Anota el mensaje de error:** Toma nota exacta del mensaje de error que aparece(PUEDES TOMAR UNA CAPTURA DE PANTALLA), incluyendo cualquier código.",
+            "2. ✅ **Revisa los datos ingresados:** Asegúrate de que toda la información requerida esté completa y en el formato correcto.",
+            "3. ✅ **Prueba en otro módulo:** Verifica si el problema ocurre solo en una funcionalidad específica o es general."
+          ],
+          "titulo_confirmacion": "¿El problema con la funcionalidad continúa?"
+        }
+      }
+    }
+  },
+  "politicas": {
+    "ciberseguridad": {
+      "titulo": "Políticas de Ciberseguridad y Seguridad de la Información",
+      "contenido": "Conjunto de medidas para proteger sistemas, redes y datos de ataques maliciosos. Incluye protección contra phishing, malware y acceso no autorizado. El departamento de TI es responsable de administrar, mantener y asegurar todos los sistemas de información."
+    },
+    "respaldo": {
+      "titulo": "Política de Respaldo de Información",
+      "contenido": "Los respaldos se almacenan en Office 365 Cloud. Los usuarios son responsables de respaldar su información en OneDrive. TI verifica periódicamente los respaldos. Prohibido almacenar archivos personales en carpetas de trabajo. Servidores: respaldo diario automático a las 08:00 AM con copia externa."
+    },
+    "mantenimiento": {
+      "titulo": "Mantenimiento de Equipos",
+      "contenido": "Mantenimiento preventivo y correctivo al menos una vez al año. TI es responsable de calendarizar mantenimientos, hacer cumplir garantías y evaluar necesidad de reemplazo de equipos obsoletos."
+    },
+    "control aplicaciones": {
+      "titulo": "Control de Instalación de Aplicaciones",
+      "contenido": "Se usan Políticas de Grupo (GPO) para controlar accesos y configuraciones. Usuarios generales no pueden acceder a configuraciones del sistema. Cuentas se desactivan durante vacaciones/permisos mayores a una semana."
+    },
+    "licencias": {
+      "titulo": "Política de Software y Hardware",
+      "contenido": "TI adquiere y legaliza software through Partners autorizados. Software común: Office 365, Kaspersky, Autocad, Anydesk, Power Builder, ZKTECO. Nuevo software debe ser solicitado a TI para evaluación."
+    },
+    "antivirus": {
+      "titulo": "Protección Antivirus y Antimalware",
+      "contenido": "Kaspersky implementado en todas las computadoras. Definiciones de virus actualizadas constantemente. USB autorizados se escanean automáticamente. Equipos infectados se aíslan inmediatamente. Se sigue Procedimiento de Gestión de Incidentes."
+    },
+    "credenciales": {
+      "titulo": "Gestión de Credenciales de Administrador",
+      "contenido": "Credenciales de super usuarios se almacenan de forma segura y encriptada con Criptoforge. Solo accesible por administradores de TI. Documento guardado en la nube fuera de la empresa."
+    },
+    "acceso fisico": {
+      "titulo": "Control de Acceso Físico",
+      "contenido": "Sala de monitoreo y Datacenter: acceso restringido solo para personal de TI. Puerta blindada con control de accesos. Temperatura monitoreada (SITRAD). Personal externo debe ser acompañado por TI y tener autorización formal."
+    },
+    "redes": {
+      "titulo": "Política de Redes y Segmentación",
+      "contenido": "Red segmentada en: Visitas, Corporativa, OT (tecnología operacional) y Aplicaciones móviles. Acceso corporativo exclusivo para equipos de la empresa. VPN requiere autorización del jefe inmediato. Intentos de acceso no autorizado son considerados ataques informáticos."
+    },
+    "acceso sistemas": {
+      "titulo": "Acceso a Sistemas de Información",
+      "contenido": "Sistema CORE (JIREH): cuentas creadas por solicitud del jefe inmediato. Formato: nombre.apellido. Contraseñas deben cambiarse cada 90 días. Credenciales son personales e intransferibles. Desvinculación: TI inactiva cuentas inmediatamente."
+    },
+    "correo": {
+      "titulo": "Política de Correo Corporativo",
+      "contenido": "Solicitud mediante jefe inmediato. Formatos: @nintanga.com.ec o @provefrut.com. Límite de adjuntos: 25MB. Tras desvinculación, cuenta permanece con respuesta automática 15-30 días, luego se inactiva."
+    },
+    "internet": {
+      "titulo": "Política de Uso de Internet",
+      "contenido": "Acceso controlado y gestionado por TI. Niveles de acceso según puesto de trabajo. Portal Office 365 y páginas gubernamentales sin restricción. Empleado es responsable del uso adecuado."
+    },
+    "clasificacion": {
+      "titulo": "Clasificación de la Información",
+      "contenido": "Confidencial: daño grave si se divulga (financieros, personales). Interna: sensible pero menos restrictiva. Pública: sin restricciones. Información confidencial puede requerir autenticación multifactor (MFA)."
+    },
+    "contrasenas": {
+      "titulo": "Política de Contraseñas",
+      "contenido": "Cambio obligatorio cada 90 días. Deben incluir: mayúsculas, minúsculas, números y símbolos. No usar información personal obvia. Autenticación Multifactor (MFA) requerida para accesos críticos."
+    },
+    "sanciones": {
+      "titulo": "Política de Sanciones",
+      "contenido": "Incumplimiento de políticas será sancionado según Reglamento Interno. TI notifica a Desarrollo Humano sobre infracciones para aplicar procedimientos correspondientes."
+    }
+  }
+}

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistente Virtual de TI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script>
+        const user = sessionStorage.getItem('user');
+        if (!user) {
+            alert('Debes iniciar sesión para acceder al asistente.');
+            window.location.href = '/';
+        }
+    </script>
+
+    <!-- Input oculto para archivos -->
+    <input type="file" id="fileInput" multiple style="display: none;" accept=".txt,.pdf,.png,.jpg,.jpeg,.gif,.doc,.docx,.xls,.xlsx,.zip,.rar">
+ <!-- Botón flotante para administradores (se mostrará dinámicamente) -->
+    <div id="adminFloatingButton" style="display: none;">
+        <button class="admin-panel-btn" id="adminPanelButton">
+            <i class="fas fa-cog"></i> Panel Admin
+        </button>
+    </div>
+    <div class="chat-wrapper">
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="header-left">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div class="title-group">
+                            <h2>Asistente Virtual de TI</h2>
+                            <p>En línea</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-actions">
+                     <!-- Botón de Administrador (se mostrará solo para admins) -->
+                    <button class="admin-header-btn" id="adminHeaderButton" style="display: none;" title="Panel de Administración">
+                        <i class="fas fa-cog"></i>
+                        <span>Admin</span>
+                    </button>
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="ticket-toggle" id="ticketToggle" title="Ver mis tickets">
+                        <i class="fas fa-ticket-alt"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="chat-main">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="welcome-container">
+                        <div class="welcome-title">¡Hola! Soy tu asistente de TI</div>
+                        <div class="welcome-subtitle">¿En qué puedo ayudarte hoy?</div>
+                    </div>
+                </div>
+                
+                <div class="tickets-panel" id="ticketsPanel">
+                    <div class="tickets-header">
+                        <h3>Mis Tickets</h3>
+                        <button class="close-tickets" id="closeTickets">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="tickets-list" id="ticketsList">
+                        <div class="loading-tickets">Cargando tus tickets...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-input-container">
+                <div class="input-wrapper">
+                    <textarea id="userInput" placeholder="Escribe tu mensaje..." rows="1"></textarea>
+                    <div class="input-actions">
+                        <!-- Botón modificado para archivos -->
+                        <button class="action-btn attach-btn" id="attachButton" title="Adjuntar archivo">
+                            <i class="fas fa-paperclip"></i>
+                        </button>
+                        <!-- <button class="action-btn" title="Emojis">
+                            <i class="far fa-smile"></i>
+                        </button> -->
+                        <button id="sendButton" class="action-btn send-btn" title="Enviar Mensaje">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+         // Script para verificar rol y mostrar botones de admin
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = JSON.parse(sessionStorage.getItem('user'));
+            const adminHeaderButton = document.getElementById('adminHeaderButton');
+            const adminFloatingButton = document.getElementById('adminFloatingButton');
+            
+            // Mostrar botones de admin solo si el usuario es administrador
+            if (user && user.rol === 'admin') {
+                adminHeaderButton.style.display = 'flex';
+                adminFloatingButton.style.display = 'block';
+                
+                // Agregar eventos a los botones de admin
+                adminHeaderButton.addEventListener('click', function() {
+                    redirectToAdminPanel();
+                });
+                
+                document.getElementById('adminPanelButton').addEventListener('click', function() {
+                    redirectToAdminPanel();
+                });
+            }
+
+            function redirectToAdminPanel() {
+                // Registrar la acción en logs si tienes esa funcionalidad
+                console.log('Admin redirecting to admin panel');
+                window.location.href = 'admin.html';
+            }
+            const ticketToggle = document.getElementById('ticketToggle');
+            const ticketsPanel = document.getElementById('ticketsPanel');
+            const closeTickets = document.getElementById('closeTickets');
+            const ticketsList = document.getElementById('ticketsList');
+            
+            ticketToggle.addEventListener('click', function() {
+                ticketsPanel.classList.add('active');
+                loadUserTickets();
+            });
+            
+            closeTickets.addEventListener('click', function() {
+                ticketsPanel.classList.remove('active');
+            });
+
+            async function submitRating(ticketId, rating) {
+                try {
+                    const response = await fetch(`/api/tickets/${ticketId}/rate`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ rating: rating })
+                    });
+                    if (!response.ok) throw new Error('No se pudo guardar la calificación.');
+                    loadUserTickets(); 
+                } catch (error) {
+                    console.error('Error al enviar la calificación:', error);
+                    alert('Hubo un error al guardar tu calificación.');
+                }
+            }
+
+            ticketsList.addEventListener('click', function(e) {
+                if (e.target.matches('.rating-star') && !e.target.closest('.ticket-rating').classList.contains('rated')) {
+                    const ticketId = e.target.dataset.ticketId;
+                    const rating = parseInt(e.target.dataset.rating, 10);
+                    submitRating(ticketId, rating);
+                }
+            });
+            
+            function loadUserTickets() {
+                const user = JSON.parse(sessionStorage.getItem('user'));
+                if (!user) {
+                    ticketsList.innerHTML = '<div class="no-tickets">Debes iniciar sesión para ver tus tickets</div>';
+                    return;
+                }
+                
+                ticketsList.innerHTML = '<div class="loading-tickets">Cargando tus tickets...</div>';
+                
+                fetch(`/api/user/tickets?username=${user.username}`)
+                    .then(response => response.json())
+                    .then(tickets => {
+                        if (!tickets || tickets.length === 0) {
+                            ticketsList.innerHTML = '<div class="no-tickets">No tienes tickets creados</div>';
+                            return;
+                        }
+                        
+                        let ticketsHTML = '';
+                        tickets.forEach(ticket => {
+                            const statusClass = ticket.ticket_est_ticket.trim() === 'FN' ? 'status-finished' : 'status-pending';
+                            const statusText = ticket.ticket_est_ticket.trim() === 'FN' ? 'Finalizado' : 'Pendiente';
+
+                            let ratingHTML = '';
+                            if (statusText === 'Finalizado') {
+                                if (ticket.ticket_calificacion) {
+                                    ratingHTML += `<div class="ticket-rating rated" title="Calificado con ${ticket.ticket_calificacion} estrellas">`;
+                                    for (let i = 1; i <= 5; i++) {
+                                        ratingHTML += `<i class="fas fa-star rating-star ${i <= ticket.ticket_calificacion ? 'selected' : ''}"></i>`;
+                                    }
+                                    ratingHTML += `</div>`;
+                                } else {
+                                    ratingHTML += `<div class="ticket-rating" title="Calificar atención">`;
+                                    for (let i = 1; i <= 5; i++) {
+                                        ratingHTML += `<i class="fas fa-star rating-star" data-ticket-id="${ticket.ticket_id_ticket}" data-rating="${i}"></i>`;
+                                    }
+                                    ratingHTML += `</div>`;
+                                }
+                            }
+
+                            ticketsHTML += `
+                                <div class="ticket-item">
+                                    <div class="ticket-info">
+                                        <div class="ticket-id">${ticket.ticket_id_ticket}</div>
+                                        <div class="ticket-subject">${ticket.ticket_asu_ticket}</div>
+                                        <div class="ticket-date">${new Date(ticket.ticket_fec_ticket).toLocaleDateString()}</div>
+                                        <div class="ticket-status ${statusClass}">${statusText}</div>
+                                    </div>
+                                    ${ratingHTML}
+                                </div>
+                            `;
+                        });
+                        
+                        ticketsList.innerHTML = ticketsHTML;
+                    })
+                    .catch(error => {
+                        console.error('Error loading tickets:', error);
+                        ticketsList.innerHTML = '<div class="no-tickets">Error al cargar los tickets</div>';
+                    });
+            }
+        });
+    </script>
+</body>
+</html>

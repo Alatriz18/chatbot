@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes e Indicadores - Mesa de Servicio TI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #6366F1;
+            --primary-dark: #4F46E5;
+            --primary-light: #818CF8;
+            --secondary: #94A3B8;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --info: #3B82F6;
+            --background: #F8FAFC;
+            --surface: #FFFFFF;
+            --on-surface: #1E293B;
+            --on-surface-light: #64748B;
+            --border: #E2E8F0;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 5px 10px -5px rgba(0, 0, 0, 0.04);
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        .dark-mode {
+            --primary: #818CF8;
+            --primary-dark: #6366F1;
+            --primary-light: #A5B4FC;
+            --secondary: #64748B;
+            --success: #34D399;
+            --warning: #FBBF24;
+            --error: #F87171;
+            --info: #60A5FA;
+            --background: #0F172A;
+            --surface: #1E293B;
+            --on-surface: #F1F5F9;
+            --on-surface-light: #94A3B8;
+            --border: #334155;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 5px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--on-surface);
+            transition: var(--transition);
+            min-height: 100vh;
+        }
+
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 24px 0;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 0 24px 24px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 24px;
+        }
+
+        .sidebar-header h1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-header h1 i {
+            font-size: 24px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .user-details {
+            flex: 1;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .user-role {
+            font-size: 12px;
+            color: var(--on-surface-light);
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+            padding: 2px 8px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        .nav-menu {
+            flex: 1;
+            padding: 0 16px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            color: var(--on-surface-light);
+            text-decoration: none;
+            transition: var(--transition);
+            margin-bottom: 8px;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+        }
+
+        .nav-item.active {
+            font-weight: 600;
+        }
+
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-footer {
+            padding: 16px 24px 0;
+            border-top: 1px solid var(--border);
+            margin-top: auto;
+        }
+
+        .theme-toggle {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            color: var(--on-surface-light);
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--background);
+            color: var(--on-surface);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .dashboard-title h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .dashboard-title p {
+            color: var(--on-surface-light);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .header-action-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--on-surface);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .header-action-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Filters Panel */
+        .filters-panel {
+            background: var(--surface);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            align-items: end;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--on-surface-light);
+        }
+
+        .filter-select, .filter-input {
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--surface);
+            color: var(--on-surface);
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .filter-select:focus, .filter-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--on-surface);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* KPI Cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .kpi-card {
+            background: var(--surface);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .kpi-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .kpi-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-right: 12px;
+        }
+
+        .kpi-card.sla .kpi-icon { background: rgba(59, 130, 246, 0.1); color: var(--info); }
+        .kpi-card.resolution .kpi-icon { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .kpi-card.satisfaction .kpi-icon { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+        .kpi-card.efficiency .kpi-icon { background: rgba(139, 92, 246, 0.1); color: #8B5CF6; }
+
+        .kpi-title {
+            font-size: 14px;
+            color: var(--on-surface-light);
+            margin-bottom: 4px;
+        }
+
+        .kpi-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .kpi-trend {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .trend-up { color: var(--success); }
+        .trend-down { color: var(--error); }
+
+        /* Charts Grid */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .chart-card {
+            background: var(--surface);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .chart-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        /* Detailed Reports */
+        .reports-section {
+            background: var(--surface);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+        }
+
+        .report-table th {
+            background-color: var(--background);
+            padding: 16px 12px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--on-surface-light);
+            font-size: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .report-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        .report-table tr:hover {
+            background-color: var(--background);
+        }
+
+        /* Export Section */
+        .export-section {
+            background: var(--surface);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            margin-top: 24px;
+        }
+
+        .export-options {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chart-card {
+                min-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .admin-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+            }
+            
+            .main-content {
+                padding: 16px;
+            }
+            
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+            
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-actions {
+                justify-content: stretch;
+            }
+            
+            .btn {
+                flex: 1;
+                justify-content: center;
+            }
+            
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading states */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="fas fa-chart-bar"></i> Reportes TI</h1>
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">A</div>
+                    <div class="user-details">
+                        <div class="user-name" id="userName">Administrador</div>
+                        <span class="user-role">Administrador</span>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="admin.html" class="nav-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="admin.html" class="nav-item">
+                    <i class="fas fa-ticket-alt"></i>
+                    <span>Tickets</span>
+                </a>
+                <a href="reportes.html" class="nav-item active">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Reportes</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                    <span>Modo oscuro</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="dashboard-header">
+                <div class="dashboard-title">
+                    <h2>Reportes e Indicadores</h2>
+                    <p>Métricas y análisis del desempeño del servicio TI</p>
+                </div>
+                <div class="header-actions">
+                    <a href="admin.html" class="header-action-btn">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Volver al Panel</span>
+                    </a>
+                    <button class="header-action-btn" id="refreshBtn">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Actualizar</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filtros -->
+            <div class="filters-panel">
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label class="filter-label">Rango de Fechas</label>
+                        <select class="filter-select" id="dateRange">
+                            <option value="7">Últimos 7 días</option>
+                            <option value="30" selected>Últimos 30 días</option>
+                            <option value="90">Últimos 3 meses</option>
+                            <option value="365">Último año</option>
+                            <option value="custom">Personalizado</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group" id="customDateRange" style="display: none;">
+                        <label class="filter-label">Rango Personalizado</label>
+                        <div style="display: flex; gap: 8px;">
+                            <input type="date" class="filter-input" id="startDate">
+                            <input type="date" class="filter-input" id="endDate">
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">Tipo de Ticket</label>
+                        <select class="filter-select" id="ticketType">
+                            <option value="all">Todos los tipos</option>
+                            <option value="Software">Software</option>
+                            <option value="Hardware">Hardware</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">Estado</label>
+                        <select class="filter-select" id="ticketStatus">
+                            <option value="all">Todos los estados</option>
+                            <option value="PE">Pendientes</option>
+                            <option value="FN">Finalizados</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-actions">
+                        <button class="btn btn-secondary" id="resetFilters">
+                            <i class="fas fa-undo"></i> Reiniciar
+                        </button>
+                        <button class="btn btn-primary" id="applyFilters">
+                            <i class="fas fa-filter"></i> Aplicar Filtros
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPIs -->
+            <div class="kpi-grid">
+                <div class="kpi-card sla">
+                    <div class="kpi-header">
+                        <div class="kpi-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <div class="kpi-title">Tiempo Medio de Respuesta</div>
+                            <div class="kpi-value" id="avgResponseTime">-</div>
+                            <div class="kpi-trend trend-up">
+                                <i class="fas fa-arrow-up"></i>
+                                <span id="responseTimeTrend">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="kpi-card resolution">
+                    <div class="kpi-header">
+                        <div class="kpi-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div>
+                            <div class="kpi-title">Tickets Resueltos</div>
+                            <div class="kpi-value" id="resolvedTickets">-</div>
+                            <div class="kpi-trend trend-up">
+                                <i class="fas fa-arrow-up"></i>
+                                <span id="resolutionTrend">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="kpi-card satisfaction">
+                    <div class="kpi-header">
+                        <div class="kpi-icon">
+                            <i class="fas fa-smile"></i>
+                        </div>
+                        <div>
+                            <div class="kpi-title">Satisfacción del Usuario</div>
+                            <div class="kpi-value" id="satisfactionRate">-</div>
+                            <div class="kpi-trend trend-up">
+                                <i class="fas fa-arrow-up"></i>
+                                <span id="satisfactionTrend">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="kpi-card efficiency">
+                    <div class="kpi-header">
+                        <div class="kpi-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div>
+                            <div class="kpi-title">Eficiencia del Servicio</div>
+                            <div class="kpi-value" id="efficiencyRate">-</div>
+                            <div class="kpi-trend trend-up">
+                                <i class="fas fa-arrow-up"></i>
+                                <span id="efficiencyTrend">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gráficos -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Tickets por Estado</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="statusChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Tickets por Tipo</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="typeChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Tendencia Mensual</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="trendChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Distribución por Técnico</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="technicianChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reportes Detallados -->
+            <div class="reports-section">
+                <div class="section-header">
+                    <div class="section-title">Reporte Detallado de Tickets</div>
+                    <button class="btn btn-primary" id="exportReport">
+                        <i class="fas fa-download"></i> Exportar CSV
+                    </button>
+                </div>
+                
+                <table class="report-table">
+                    <thead>
+                        <tr>
+                            <th>Ticket ID</th>
+                            <th>Asunto</th>
+                            <th>Usuario</th>
+                            <th>Técnico</th>
+                            <th>Tipo</th>
+                            <th>Estado</th>
+                            <th>Fecha Creación</th>
+                            <th>Calificación</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportTableBody">
+                        <!-- Los datos se cargarán aquí -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Exportación -->
+            <div class="export-section">
+                <div class="section-header">
+                    <div class="section-title">Exportar Reportes</div>
+                </div>
+                <div class="export-options">
+                    <button class="btn btn-primary" id="exportPDF">
+                        <i class="fas fa-file-pdf"></i> Exportar PDF
+                    </button>
+                    <button class="btn btn-primary" id="exportExcel">
+                        <i class="fas fa-file-excel"></i> Exportar Excel
+                    </button>
+                    <button class="btn btn-primary" id="exportCharts">
+                        <i class="fas fa-image"></i> Exportar Gráficos
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables globales
+            let allTickets = [];
+            let filteredTickets = [];
+            let charts = {};
+            const API_BASE_URL = 'http://172.20.8.70:5000/api'; // Cambiar por tu IP si es necesario
+
+            // Elementos DOM
+            const user = JSON.parse(sessionStorage.getItem('user'));
+            const themeToggle = document.getElementById('themeToggle');
+            const refreshBtn = document.getElementById('refreshBtn');
+            const userAvatar = document.getElementById('userAvatar');
+            const userName = document.getElementById('userName');
+            const dateRange = document.getElementById('dateRange');
+            const customDateRange = document.getElementById('customDateRange');
+            const startDate = document.getElementById('startDate');
+            const endDate = document.getElementById('endDate');
+            const applyFilters = document.getElementById('applyFilters');
+            const resetFilters = document.getElementById('resetFilters');
+            const exportReport = document.getElementById('exportReport');
+            const exportPDF = document.getElementById('exportPDF');
+            const exportExcel = document.getElementById('exportExcel');
+            const exportCharts = document.getElementById('exportCharts');
+
+            // Verificación de seguridad
+            if (!user || user.rol !== 'admin') {
+                alert('Acceso denegado. Debes ser administrador.');
+                window.location.href = '/';
+                return;
+            }
+
+            // Configuración inicial
+            if (user && user.username) {
+                userAvatar.textContent = user.username.charAt(0).toUpperCase();
+                userName.textContent = user.username;
+            }
+
+            // Configurar fechas por defecto
+            const today = new Date();
+            const thirtyDaysAgo = new Date(today);
+            thirtyDaysAgo.setDate(today.getDate() - 30);
+            
+            endDate.value = today.toISOString().split('T')[0];
+            startDate.value = thirtyDaysAgo.toISOString().split('T')[0];
+
+            // Event Listeners
+            themeToggle.addEventListener('click', toggleTheme);
+            refreshBtn.addEventListener('click', loadData);
+            dateRange.addEventListener('change', handleDateRangeChange);
+            applyFilters.addEventListener('click', applyFiltersHandler);
+            resetFilters.addEventListener('click', resetFiltersHandler);
+            exportReport.addEventListener('click', exportCSV);
+            exportPDF.addEventListener('click', exportToPDF);
+            exportExcel.addEventListener('click', exportToExcel);
+            exportCharts.addEventListener('click', exportChartsHandler);
+
+            // Funciones
+            function toggleTheme() {
+                document.body.classList.toggle('dark-mode');
+                if (document.body.classList.contains('dark-mode')) {
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i><span>Modo claro</span>';
+                } else {
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i><span>Modo oscuro</span>';
+                }
+                // Actualizar gráficos con nuevo tema
+                updateCharts();
+            }
+
+            function handleDateRangeChange() {
+                if (dateRange.value === 'custom') {
+                    customDateRange.style.display = 'block';
+                } else {
+                    customDateRange.style.display = 'none';
+                }
+            }
+
+            async function loadData() {
+                showLoadingState(true);
+                try {
+                    const response = await fetch(`${API_BASE_URL}/admin/tickets`);
+                    if (!response.ok) throw new Error('Error al cargar tickets');
+                    
+                    allTickets = await response.json();
+                    applyFiltersHandler();
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Error al cargar los datos: ' + error.message);
+                } finally {
+                    showLoadingState(false);
+                }
+            }
+
+            function applyFiltersHandler() {
+                filteredTickets = [...allTickets];
+                
+                // Filtrar por fecha
+                const range = dateRange.value;
+                if (range !== 'all') {
+                    let startDateFilter, endDateFilter;
+                    
+                    if (range === 'custom') {
+                        startDateFilter = new Date(startDate.value);
+                        endDateFilter = new Date(endDate.value);
+                    } else {
+                        endDateFilter = new Date();
+                        startDateFilter = new Date();
+                        startDateFilter.setDate(endDateFilter.getDate() - parseInt(range));
+                    }
+                    
+                    filteredTickets = filteredTickets.filter(ticket => {
+                        const ticketDate = new Date(ticket.ticket_fec_ticket);
+                        return ticketDate >= startDateFilter && ticketDate <= endDateFilter;
+                    });
+                }
+                
+                // Filtrar por tipo
+                const type = document.getElementById('ticketType').value;
+                if (type !== 'all') {
+                    filteredTickets = filteredTickets.filter(ticket => 
+                        ticket.ticket_tip_ticket === type
+                    );
+                }
+                
+                // Filtrar por estado
+                const status = document.getElementById('ticketStatus').value;
+                if (status !== 'all') {
+                    filteredTickets = filteredTickets.filter(ticket => 
+                        ticket.ticket_est_ticket === status
+                    );
+                }
+                
+                updateKPIs();
+                updateCharts();
+                updateReportTable();
+            }
+
+            function resetFiltersHandler() {
+                dateRange.value = '30';
+                document.getElementById('ticketType').value = 'all';
+                document.getElementById('ticketStatus').value = 'all';
+                customDateRange.style.display = 'none';
+                applyFiltersHandler();
+            }
+
+            function updateKPIs() {
+                // Tiempo medio de respuesta (simulado)
+                const avgResponseTime = Math.random() * 24 + 1;
+                document.getElementById('avgResponseTime').textContent = avgResponseTime.toFixed(1) + 'h';
+                
+                // Tickets resueltos
+                const resolved = filteredTickets.filter(t => t.ticket_est_ticket === 'FN').length;
+                document.getElementById('resolvedTickets').textContent = resolved;
+                
+                // Tasa de satisfacción (simulada)
+                const satisfaction = Math.random() * 20 + 80;
+                document.getElementById('satisfactionRate').textContent = satisfaction.toFixed(1) + '%';
+                
+                // Eficiencia (simulada)
+                const efficiency = Math.random() * 15 + 85;
+                document.getElementById('efficiencyRate').textContent = efficiency.toFixed(1) + '%';
+                
+                // Tendencias (simuladas)
+                document.getElementById('responseTimeTrend').textContent = (Math.random() * 10 - 5).toFixed(1) + '%';
+                document.getElementById('resolutionTrend').textContent = (Math.random() * 15).toFixed(1) + '%';
+                document.getElementById('satisfactionTrend').textContent = (Math.random() * 5).toFixed(1) + '%';
+                document.getElementById('efficiencyTrend').textContent = (Math.random() * 8).toFixed(1) + '%';
+            }
+
+            function updateCharts() {
+                // Destruir gráficos existentes
+                Object.values(charts).forEach(chart => {
+                    if (chart) chart.destroy();
+                });
+                
+                // Gráfico de estado de tickets
+                const statusCtx = document.getElementById('statusChart').getContext('2d');
+                const statusData = {
+                    labels: ['Pendientes', 'Finalizados'],
+                    datasets: [{
+                        data: [
+                            filteredTickets.filter(t => t.ticket_est_ticket === 'PE').length,
+                            filteredTickets.filter(t => t.ticket_est_ticket === 'FN').length
+                        ],
+                        backgroundColor: ['#F59E0B', '#10B981'],
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                };
+                
+                charts.statusChart = new Chart(statusCtx, {
+                    type: 'doughnut',
+                    data: statusData,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    color: getComputedStyle(document.body).getPropertyValue('--on-surface')
+                                }
+                            }
+                        }
+                    }
+                });
+                
+                // Gráfico de tipos de tickets
+                const typeCtx = document.getElementById('typeChart').getContext('2d');
+                const typeData = {
+                    labels: ['Software', 'Hardware'],
+                    datasets: [{
+                        data: [
+                            filteredTickets.filter(t => t.ticket_tip_ticket === 'Software').length,
+                            filteredTickets.filter(t => t.ticket_tip_ticket === 'Hardware').length
+                        ],
+                        backgroundColor: ['#3B82F6', '#8B5CF6'],
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                };
+                
+                charts.typeChart = new Chart(typeCtx, {
+                    type: 'pie',
+                    data: typeData,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    color: getComputedStyle(document.body).getPropertyValue('--on-surface')
+                                }
+                            }
+                        }
+                    }
+                });
+                
+                // Gráfico de tendencia mensual
+                const trendCtx = document.getElementById('trendChart').getContext('2d');
+                const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+                const currentMonth = new Date().getMonth();
+                const monthlyData = Array(6).fill(0).map((_, i) => {
+                    const month = (currentMonth - 5 + i + 12) % 12;
+                    return Math.floor(Math.random() * 20) + 5;
+                });
+                
+                charts.trendChart = new Chart(trendCtx, {
+                    type: 'line',
+                    data: {
+                        labels: months.slice(currentMonth - 5, currentMonth + 1),
+                        datasets: [{
+                            label: 'Tickets',
+                            data: monthlyData,
+                            borderColor: '#6366F1',
+                            backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                },
+                                ticks: {
+                                    color: getComputedStyle(document.body).getPropertyValue('--on-surface-light')
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                },
+                                ticks: {
+                                    color: getComputedStyle(document.body).getPropertyValue('--on-surface-light')
+                                }
+                            }
+                        }
+                    }
+                });
+                
+                // Gráfico de distribución por técnico
+                const techCtx = document.getElementById('technicianChart').getContext('2d');
+                const technicians = ['Técnico 1', 'Técnico 2', 'Técnico 3', 'Técnico 4', 'Sin asignar'];
+                const techData = technicians.map(() => Math.floor(Math.random() * 15) + 1);
+                
+                charts.technicianChart = new Chart(techCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: technicians,
+                        datasets: [{
+                            label: 'Tickets asignados',
+                            data: techData,
+                            backgroundColor: '#10B981',
+                            borderColor: '#0D9488',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                },
+                                ticks: {
+                                    color: getComputedStyle(document.body).getPropertyValue('--on-surface-light')
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                },
+                                ticks: {
+                                    color: getComputedStyle(document.body).getPropertyValue('--on-surface-light')
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function updateReportTable() {
+                const tbody = document.getElementById('reportTableBody');
+                tbody.innerHTML = '';
+                
+                filteredTickets.slice(0, 50).forEach(ticket => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${ticket.ticket_id_ticket}</td>
+                        <td>${ticket.ticket_asu_ticket || 'N/A'}</td>
+                        <td>${ticket.ticket_tusua_ticket || 'N/D'}</td>
+                        <td>${ticket.ticket_asignado_a || 'Sin asignar'}</td>
+                        <td>${ticket.ticket_tip_ticket || 'N/A'}</td>
+                        <td><span class="status-badge status-${ticket.ticket_est_ticket}">
+                            ${ticket.ticket_est_ticket === 'FN' ? 'Finalizado' : 'Pendiente'}
+                        </span></td>
+                        <td>${ticket.ticket_fec_ticket ? new Date(ticket.ticket_fec_ticket).toLocaleDateString() : 'N/A'}</td>
+                        <td>${ticket.ticket_calificacion ? '★'.repeat(ticket.ticket_calificacion) : 'Sin calificar'}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+                
+                if (filteredTickets.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 20px;">No hay tickets que coincidan con los filtros</td></tr>';
+                }
+            }
+
+            function showLoadingState(show) {
+                const elements = document.querySelectorAll('.kpi-card, .chart-card, .reports-section');
+                elements.forEach(el => {
+                    if (show) {
+                        el.classList.add('loading');
+                    } else {
+                        el.classList.remove('loading');
+                    }
+                });
+                
+                const refreshIcon = refreshBtn.querySelector('i');
+                if (show) {
+                    refreshIcon.classList.add('spinner');
+                } else {
+                    refreshIcon.classList.remove('spinner');
+                }
+            }
+
+            function exportCSV() {
+                const headers = ['Ticket ID', 'Asunto', 'Usuario', 'Técnico', 'Tipo', 'Estado', 'Fecha', 'Calificación'];
+                const csvData = filteredTickets.map(ticket => [
+                    ticket.ticket_id_ticket,
+                    ticket.ticket_asu_ticket || '',
+                    ticket.ticket_tusua_ticket || '',
+                    ticket.ticket_asignado_a || '',
+                    ticket.ticket_tip_ticket || '',
+                    ticket.ticket_est_ticket === 'FN' ? 'Finalizado' : 'Pendiente',
+                    ticket.ticket_fec_ticket ? new Date(ticket.ticket_fec_ticket).toLocaleDateString() : '',
+                    ticket.ticket_calificacion || ''
+                ]);
+                
+                const csvContent = [headers, ...csvData].map(row => 
+                    row.map(field => `"${field}"`).join(',')
+                ).join('\n');
+                
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `reporte_tickets_${new Date().toISOString().split('T')[0]}.csv`;
+                a.click();
+                window.URL.revokeObjectURL(url);
+            }
+
+            function exportToPDF() {
+                alert('Funcionalidad de exportación PDF en desarrollo');
+                // En una implementación real, usarías una librería como jsPDF
+            }
+
+            function exportToExcel() {
+                alert('Funcionalidad de exportación Excel en desarrollo');
+                // En una implementación real, usarías una librería como SheetJS
+            }
+
+            function exportChartsHandler() {
+                alert('Funcionalidad de exportación de gráficos en desarrollo');
+                // En una implementación real, exportarías cada gráfico como imagen
+            }
+
+            // Inicializar
+            loadData();
+        });
+    </script>
+</body>
+</html>
