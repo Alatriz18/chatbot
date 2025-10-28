@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Configuración simple para red local
-    const API_BASE_URL = window.location.hostname === '172.20.8.70' 
-        ? 'http://172.20.8.70:5000' 
-        : `http://${window.location.hostname}:5000`;
+    // Usar configuración centralizada
+    const API_BASE_URL = window.APP_CONFIG.API_BASE_URL;
 
     const loginForm = document.getElementById('loginForm');
     const errorMessage = document.getElementById('error-message');

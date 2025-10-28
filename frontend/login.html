@@ -366,6 +366,7 @@
         </div>
     </div>
 
+    <script src="js/config.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const loginForm = document.getElementById('loginForm');
@@ -414,8 +415,8 @@
                 const password = document.getElementById('password').value;
                 
                 try {
-                    // Usa la IP de tu servidor Flask
-                    const response = await fetch('http://172.20.8.70:5000/api/login', {
+                    // URL usando configuración centralizada
+                    const response = await fetch(window.APP_CONFIG.getApiUrl() + '/login', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

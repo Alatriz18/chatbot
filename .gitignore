@@ -10,3 +10,4 @@ __pycache__/
 # Archivos de entorno (contraseñas, etc.)
 .env
 *.env
+.env.example

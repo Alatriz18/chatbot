@@ -1,13 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    // --- CONFIGURACIÓN DINÁMICA PARA RED LOCAL ---
-    const getApiBaseUrl = () => {
-        if (window.location.hostname === '172.20.8.70' || window.location.hostname === '172.20.8.70') {
-            return 'http://172.20.8.70:5000/api';
-        }
-        return `http://${window.location.hostname}:5000/api`;
-    };
-    
-    const API_BASE_URL = getApiBaseUrl();
+    // --- CONFIGURACIÓN USANDO CONFIG CENTRALIZADO ---
+    const API_BASE_URL = window.APP_CONFIG.getApiUrl();
     
     console.log('🌐 Configuración de red detectada:');
     console.log('Hostname:', window.location.hostname);

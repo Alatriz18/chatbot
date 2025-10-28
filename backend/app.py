@@ -12,25 +12,33 @@ import threading
 import time
 from werkzeug.utils import secure_filename
 import uuid
+from dotenv import load_dotenv
 
+# Cargar variables de entorno
+load_dotenv()
 
 # --- Configuración ---
-app = Flask(__name__, static_url_path='', static_folder='.')
+app = Flask(__name__, static_url_path='', static_folder='../frontend')
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 logging.basicConfig(level=logging.INFO)
 
 
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
-NOTIFICATION_SOUNDS_FOLDER = 'static/notification_sounds'
+NOTIFICATION_SOUNDS_FOLDER = '../frontend/static/notification_sounds'
 ALLOWED_AUDIO_EXTENSIONS = {'mp3', 'wav', 'ogg', 'm4a'}
 
 
 # --- Configuración de Conexiones ---
-POSTGRES_URL = os.getenv("DATABASE_URL", "postgresql://postgres:12345Prove@172.20.4.61:5432/postgres")
+POSTGRES_URL = os.getenv("DATABASE_URL")
 INFORMIX_URI = (
     f"DRIVER={{IBM INFORMIX ODBC DRIVER (64-bit)}};"
-    f"SERVER=ol_planta;DATABASE=lasso;HOST=172.20.4.51;"
-    f"PROTOCOL=onsoctcp;SERVICE=1526;UID=informix;PWD=Inf0rm1x_2019_lss;"
+    f"SERVER={os.getenv('INFORMIX_SERVER', 'ol_planta')};"
+    f"DATABASE={os.getenv('INFORMIX_DATABASE', 'lasso')};"
+    f"HOST={os.getenv('INFORMIX_HOST', '172.20.4.51')};"
+    f"PROTOCOL=onsoctcp;"
+    f"SERVICE={os.getenv('INFORMIX_PORT', '1526')};"
+    f"UID={os.getenv('INFORMIX_USER', 'informix')};"
+    f"PWD={os.getenv('INFORMIX_PASSWORD', 'Inf0rm1x_2019_lss')};"
 )
 
 # --- Configuración de Archivos ---
@@ -239,11 +247,11 @@ def get_notification_sound():
         return jsonify({"error": str(e)}), 500
 # --- Rutas para servir páginas ---
 @app.route('/')
-def serve_root(): return send_from_directory('.', 'login.html')
+def serve_root(): return send_from_directory('../frontend', 'login.html')
 @app.route('/admin')
-def serve_admin_page(): return send_from_directory('.', 'admin.html')
+def serve_admin_page(): return send_from_directory('../frontend', 'admin.html')
 @app.route('/chat')
-def serve_chat_page(): return send_from_directory('.', 'chat.html')
+def serve_chat_page(): return send_from_directory('../frontend', 'chat.html')
 
 # --- API Endpoints ---
 

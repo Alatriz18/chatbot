@@ -403,7 +403,7 @@ class NotificationSystem {
 
     async checkForNewTickets() {
         try {
-            const response = await fetch('http://172.20.8.70:5000/api/admin/tickets');
+            const response = await fetch(window.APP_CONFIG.getApiUrl() + '/admin/tickets');
             const tickets = await response.json();
 
             if (!response.ok) throw new Error('Error al obtener tickets');
@@ -694,7 +694,7 @@ class NotificationSystem {
 
 // --- SISTEMA DE MIS TICKETS ---
 document.addEventListener('DOMContentLoaded', () => {
-    const API_BASE_URL = 'http://172.20.8.70:5000';
+    const API_BASE_URL = window.APP_CONFIG.API_BASE_URL;
     const user = JSON.parse(sessionStorage.getItem('user'));
 
     // Security check
@@ -705,7 +705,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- CONEXIÓN WEBSOCKET ---
-    const socket = io('http://172.20.8.70:5000');
+    const socket = io(window.APP_CONFIG.getSocketUrl());
     
     // Cuando se conecta el WebSocket
     socket.on('connect', () => {

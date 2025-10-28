@@ -400,7 +400,7 @@ updateCurrentSoundInfo(soundPath) {
 
     async checkForNewTickets() {
         try {
-            const response = await fetch('http://172.20.8.70:5000/api/admin/tickets');
+            const response = await fetch(window.APP_CONFIG.getApiUrl() + '/admin/tickets');
             const tickets = await response.json();
 
             if (!response.ok) throw new Error('Error al obtener tickets');
@@ -934,11 +934,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // --- CONFIGURACIÓN DINÁMICA PARA RED LOCAL ---
+    // Usar configuración centralizada
     const getApiBaseUrl = () => {
-        if (window.location.hostname === '172.20.8.70' || window.location.hostname === '172.20.8.70') {
-            return 'http://172.20.8.70:5000';
-        }
-        return `http://${window.location.hostname}:5000`;
+        return window.APP_CONFIG.API_BASE_URL;
     };
 
     const API_BASE_URL = getApiBaseUrl();
@@ -958,7 +956,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- CONEXIÓN WEBSOCKET ---
-    const socket = io('http://172.20.8.70:5000');
+    const socket = io(window.APP_CONFIG.getSocketUrl());
     
     // Cuando se conecta el WebSocket
     socket.on('connect', () => {
@@ -1029,7 +1027,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchAdmins() {
         try {
-            const response = await fetch('http://172.20.8.70:5000/api/admins');
+            const response = await fetch(window.APP_CONFIG.getApiUrl() + '/admins');
             allAdmins = await response.json();
             if (!response.ok) throw new Error('No se pudo cargar la lista de administradores.');
         } catch (error) {
@@ -1157,7 +1155,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const adminUsername = e.target.value;
         
         try {
-            const response = await fetch(`http://172.20.8.70:5000/api/admin/tickets/${ticketId}/assign`, {
+            const response = await fetch(`${window.APP_CONFIG.getApiUrl()}/admin/tickets/${ticketId}/assign`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ admin_username: adminUsername })
@@ -1184,7 +1182,7 @@ document.addEventListener('DOMContentLoaded', () => {
         button.disabled = true;
         
         try {
-            const response = await fetch(`http://172.20.8.70:5000/api/admin/tickets/${ticketId}`, {
+            const response = await fetch(`${window.APP_CONFIG.getApiUrl()}/admin/tickets/${ticketId}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: 'FN' })
