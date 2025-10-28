@@ -29,8 +29,8 @@ ALLOWED_AUDIO_EXTENSIONS = {'mp3', 'wav', 'ogg', 'm4a'}
 POSTGRES_URL = os.getenv("DATABASE_URL", "postgresql://postgres:12345Prove@172.20.4.61:5432/postgres")
 INFORMIX_URI = (
     f"DRIVER={{IBM INFORMIX ODBC DRIVER (64-bit)}};"
-    f"SERVER=ol_planta;DATABASE=lasso;HOST=172.20.4.51;"
-    f"PROTOCOL=onsoctcp;SERVICE=1526;UID=informix;PWD=Inf0rm1x_2019_lss;"
+    f"SERVER=;"
+    f"PROTOCOL=onsoctcp;SERVICE=;UID=;PWD=;"
 )
 
 # --- Configuración de Archivos ---
