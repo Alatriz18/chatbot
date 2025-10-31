@@ -12,13 +12,14 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copia los archivos de requirements primero
-COPY requirements.txt .
+COPY backend/requirements.txt .
 
 # Instala las dependencias de Python
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copia el resto de la aplicación
-COPY . .
+# Copia el backend y el frontend
+COPY backend/ .
+COPY frontend/ ../frontend/
 
 # Crea un usuario no-root para mayor seguridad
 RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app

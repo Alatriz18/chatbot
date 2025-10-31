@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Docker
+.dockerignore
+Dockerfile
+docker-compose.yml
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.*
+!.env.template
+
+# Uploads (archivos grandes de usuario)
+backend/uploads/
+
+# Tests
+backend/tests/
+
+# Archivos temporales
+*.tmp
+*.bak
+*.csv.new
+backend/*.csv
+backend/*.tar
+
+# Credenciales
+backend/RDS_CREDENTIALS.txt
+
