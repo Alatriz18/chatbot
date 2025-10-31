@@ -10,35 +10,10 @@
         :root {
             --primary: #6366F1;
             --primary-dark: #4F46E5;
-            --primary-light: #818CF8;
-            --secondary: #94A3B8;
-            --success: #10B981;
-            --error: #EF4444;
             --background: #F8FAFC;
             --surface: #FFFFFF;
             --on-surface: #1E293B;
             --on-surface-light: #64748B;
-            --border: #E2E8F0;
-            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 5px 10px -5px rgba(0, 0, 0, 0.04);
-            --radius-lg: 20px;
-            --radius-md: 12px;
-            --radius-sm: 8px;
-            --transition: all 0.3s ease;
-        }
-
-        .dark-mode {
-            --primary: #818CF8;
-            --primary-dark: #6366F1;
-            --primary-light: #A5B4FC;
-            --secondary: #64748B;
-            --success: #34D399;
-            --error: #F87171;
-            --background: #0F172A;
-            --surface: #1E293B;
-            --on-surface: #F1F5F9;
-            --on-surface-light: #94A3B8;
-            --border: #334155;
-            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 5px 10px -5px rgba(0, 0, 0, 0.2);
         }
 
         * {
@@ -56,403 +31,148 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        body::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at center, transparent 30%, var(--primary-light) 150%);
-            opacity: 0.03;
-            z-index: -1;
         }
 
         .login-container {
-            display: flex;
-            width: 100%;
-            max-width: 1000px;
-            min-height: 600px;
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            background-color: var(--surface);
-            transition: var(--transition);
-        }
-
-        .login-visual {
-            flex: 1;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .login-visual::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
-            opacity: 0.3;
-        }
-
-        .visual-content {
-            position: relative;
-            z-index: 1;
             text-align: center;
-            max-width: 400px;
+            max-width: 500px;
+            background: var(--surface);
+            padding: 60px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
-        .visual-icon {
+        .icon-container {
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 30px;
             font-size: 32px;
+            color: white;
         }
 
-        .visual-content h1 {
+        h1 {
             font-size: 28px;
             font-weight: 700;
             margin-bottom: 16px;
+            color: var(--primary);
         }
 
-        .visual-content p {
+        p {
+            color: var(--on-surface-light);
             font-size: 16px;
-            opacity: 0.9;
+            margin-bottom: 30px;
             line-height: 1.6;
         }
 
-        .login-form-section {
-            flex: 1;
-            padding: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(99, 102, 241, 0.2);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 30px auto;
         }
 
-        .form-header {
-            margin-bottom: 40px;
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
-        .form-header h2 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 8px;
+        .status-message {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .status-info {
+            background-color: rgba(99, 102, 241, 0.1);
             color: var(--primary);
         }
 
-        .form-header p {
-            color: var(--on-surface-light);
-            font-size: 15px;
+        .status-error {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #EF4444;
         }
 
-        .login-form {
-            width: 100%;
-        }
-
-        .input-group {
-            margin-bottom: 24px;
-            position: relative;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            font-size: 14px;
-            color: var(--on-surface);
-        }
-
-        .input-field {
-            position: relative;
-        }
-
-        .input-field i {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--on-surface-light);
-            z-index: 1;
-        }
-
-        .input-field input {
-            width: 100%;
-            padding: 14px 16px 14px 48px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-size: 15px;
-            background-color: var(--surface);
-            color: var(--on-surface);
-            transition: var(--transition);
-        }
-
-        .input-field input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-        }
-
-        .password-toggle {
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--on-surface-light);
-            cursor: pointer;
-            z-index: 1;
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 16px;
+        .btn-login {
+            display: inline-block;
+            padding: 14px 32px;
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
             border: none;
-            border-radius: var(--radius-sm);
+            border-radius: 8px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 6px rgba(99, 102, 241, 0.3);
-            position: relative;
-            overflow: hidden;
+            text-decoration: none;
+            transition: transform 0.2s;
         }
 
-        .login-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .login-btn:hover::before {
-            left: 100%;
-        }
-
-        .login-btn:hover {
+        .btn-login:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(99, 102, 241, 0.4);
-        }
-
-        .login-btn:active {
-            transform: translateY(0);
-        }
-
-        #error-message {
-            background-color: rgba(239, 68, 68, 0.1);
-            color: var(--error);
-            padding: 12px 16px;
-            border-radius: var(--radius-sm);
-            margin-top: 20px;
-            font-size: 14px;
-            display: none;
-            border-left: 4px solid var(--error);
-        }
-
-        .theme-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: var(--on-surface-light);
-            background-color: var(--bot-bubble);
-            transition: var(--transition);
-        }
-
-        .theme-toggle:hover {
-            color: var(--primary);
-            background-color: rgba(99, 102, 241, 0.1);
-        }
-
-        @media (max-width: 768px) {
-            .login-container {
-                flex-direction: column;
-                min-height: auto;
-            }
-            
-            .login-visual {
-                padding: 30px 20px;
-                display: none; /* Ocultar sección visual en móviles */
-            }
-            
-            .login-form-section {
-                padding: 40px 20px;
-            }
         }
     </style>
 </head>
 <body>
-    <button class="theme-toggle" id="themeToggle">
-        <i class="fas fa-moon"></i>
-    </button>
-
     <div class="login-container">
-        <div class="login-visual">
-            <div class="visual-content">
-                <div class="visual-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <h1>Mesa de Servicio TI</h1>
-                <p>Sistema de soporte técnico especializado para resolver tus problemas de TI de manera eficiente y segura.</p>
-            </div>
+        <div class="icon-container">
+            <i class="fas fa-shield-alt"></i>
         </div>
-
-        <div class="login-form-section">
-            <div class="form-header">
-                <h2>Bienvenido de nuevo</h2>
-                <p>Ingresa tus credenciales para acceder al sistema</p>
-            </div>
-
-            <form id="loginForm" class="login-form">
-                <div class="input-group">
-                    <label for="username">Usuario</label>
-                    <div class="input-field">
-                        <i class="fas fa-user"></i>
-                        <input type="text" id="username" name="username" placeholder="Ingresa tu usuario" required>
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <label for="password">Contraseña</label>
-                    <div class="input-field">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required>
-                        <span class="password-toggle" id="passwordToggle">
-                            <i class="fas fa-eye"></i>
-                        </span>
-                    </div>
-                </div>
-
-                <button type="submit" class="login-btn">
-                    <span id="loginText">Iniciar sesión</span>
-                    <span id="loginSpinner" style="display: none;">
-                        <i class="fas fa-spinner fa-spin"></i> Verificando...
-                    </span>
-                </button>
-
-                <p id="error-message"></p>
-            </form>
-        </div>
+        <h1>Mesa de Servicio TI</h1>
+        <p id="status-text">Conectando con el sistema de autenticación...</p>
+        <div class="spinner" id="spinner"></div>
+        <div id="status-message" class="status-message" style="display: none;"></div>
+        <a href="https://main.d2ar0ncsvlrfzm.amplifyapp.com/" id="manual-login" class="btn-login" style="display: none;">
+            <i class="fas fa-sign-in-alt"></i> Ir al Login
+        </a>
     </div>
 
-    <script src="js/config.js"></script>
+    <!-- Auth Handler - DEBE IR PRIMERO -->
+    <script src="js/auth-handler.js"></script>
+    
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const loginForm = document.getElementById('loginForm');
-            const errorMessage = document.getElementById('error-message');
-            const passwordToggle = document.getElementById('passwordToggle');
-            const passwordInput = document.getElementById('password');
-            const loginText = document.getElementById('loginText');
-            const loginSpinner = document.getElementById('loginSpinner');
-            const themeToggle = document.getElementById('themeToggle');
-            
-            // Alternar modo oscuro/claro
-            themeToggle.addEventListener('click', function() {
-                document.body.classList.toggle('dark-mode');
-                
-                if (document.body.classList.contains('dark-mode')) {
-                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-                } else {
-                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-                }
-            });
-            
-            // Mostrar/ocultar contraseña
-            passwordToggle.addEventListener('click', function() {
-                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordInput.setAttribute('type', type);
-                
-                // Cambiar icono
-                if (type === 'text') {
-                    passwordToggle.innerHTML = '<i class="fas fa-eye-slash"></i>';
-                } else {
-                    passwordToggle.innerHTML = '<i class="fas fa-eye"></i>';
-                }
-            });
-            
-            // Manejar envío del formulario
-            loginForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                errorMessage.style.display = 'none';
-                
-                // Mostrar spinner y deshabilitar botón
-                loginText.style.display = 'none';
-                loginSpinner.style.display = 'inline';
-                loginForm.querySelector('button').disabled = true;
-                
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                
-                try {
-                    // URL usando configuración centralizada
-                    const response = await fetch(window.APP_CONFIG.getApiUrl() + '/login', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ username, password }),
-                    });
-                    
-                    const result = await response.json();
-                    
-                    if (!response.ok) {
-                        throw new Error(result.error || 'Error desconocido.');
-                    }
-                    
-                    // Guardamos la información del usuario en el navegador
-                    sessionStorage.setItem('user', JSON.stringify(result.user));
-                    
-                    // --- LÓGICA DE REDIRECCIÓN  ---
-                    if (result.user && result.user.rol === 'admin') {
-                        // Si es admin, va al panel de administración
-                        window.location.href = '/admin';
-                    } else {
-                        // Si es un usuario normal, va al chatbot
-                        window.location.href = '/chat';
-                    }
-                    
-                } catch (error) {
-                    errorMessage.textContent = `Error: ${error.message}`;
-                    errorMessage.style.display = 'block';
-                } finally {
-                    // Ocultar spinner y habilitar botón
-                    loginText.style.display = 'inline';
-                    loginSpinner.style.display = 'none';
-                    loginForm.querySelector('button').disabled = false;
-                }
-            });
+        // El auth-handler ya se encarga de todo automáticamente
+        // Solo mostramos mensajes de estado
+        
+        const statusText = document.getElementById('status-text');
+        const spinner = document.getElementById('spinner');
+        const statusMessage = document.getElementById('status-message');
+        const manualLogin = document.getElementById('manual-login');
+
+        // Escuchar eventos del auth handler
+        window.addEventListener('auth:ready', (event) => {
+            statusText.textContent = '✓ Autenticación exitosa';
+            spinner.style.display = 'none';
+            statusMessage.textContent = 'Redirigiendo...';
+            statusMessage.className = 'status-message status-info';
+            statusMessage.style.display = 'block';
         });
+
+        // Si después de 5 segundos no hay redirección, mostrar botón manual
+        setTimeout(() => {
+            // Verificar si NO estamos autenticados
+            if (!authHandler.isAuthenticated()) {
+                statusText.textContent = 'Necesitas iniciar sesión';
+                spinner.style.display = 'none';
+                statusMessage.textContent = 'Serás redirigido al login centralizado en 3 segundos...';
+                statusMessage.className = 'status-message status-info';
+                statusMessage.style.display = 'block';
+                
+                // Auto-redirigir después de 3 segundos
+                setTimeout(() => {
+                    authHandler.redirectToLogin();
+                }, 3000);
+                
+                // Mostrar botón de login manual por si acaso
+                manualLogin.style.display = 'inline-block';
+            }
+        }, 2000);
     </script>
 </body>
 </html>

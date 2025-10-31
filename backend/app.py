@@ -17,6 +17,9 @@ from dotenv import load_dotenv
 # Cargar variables de entorno
 load_dotenv()
 
+# Importar middleware de autenticación con Cognito
+from cognito_auth import require_auth, require_admin, optional_auth, get_current_user
+
 # --- Configuración ---
 app = Flask(__name__, static_url_path='', static_folder='../frontend')
 CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -252,6 +255,27 @@ def serve_root(): return send_from_directory('../frontend', 'login.html')
 def serve_admin_page(): return send_from_directory('../frontend', 'admin.html')
 @app.route('/chat')
 def serve_chat_page(): return send_from_directory('../frontend', 'chat.html')
+
+# ---API de Autenticación con Cognito ---
+@app.route('/api/auth/verify', methods=['GET'])
+@require_auth
+def verify_token():
+    """
+    Verifica el token de Cognito y devuelve información del usuario
+    El decorador @require_auth ya validó el token y agregó request.user
+    """
+    user = request.user
+    
+    return jsonify({
+        'valid': True,
+        'user': {
+            'sub': user.get('sub'),
+            'username': user.get('username'),
+            'email': user.get('email'),
+            'groups': user.get('groups', []),
+            'is_admin': 'admin' in user.get('groups', []) or 'Administradores' in user.get('groups', [])
+        }
+    }), 200
 
 # --- API Endpoints ---
 
