@@ -8,7 +8,7 @@ class NotificationSystem {
         this.notifications = JSON.parse(localStorage.getItem('adminNotifications')) || [];
         this.isPolling = false;
         this.pollingInterval = null;
-        this.currentAdmin = JSON.parse(sessionStorage.getItem('user'))?.username;
+        this.currentAdmin = authHandler.getUser()?.username;
         
         console.log('👤 Admin actual:', this.currentAdmin);
         console.log('📋 Notificaciones en storage:', this.notifications.length);
@@ -695,7 +695,7 @@ class NotificationSystem {
 // --- SISTEMA DE MIS TICKETS ---
 document.addEventListener('DOMContentLoaded', () => {
     const API_BASE_URL = window.APP_CONFIG.API_BASE_URL;
-    const user = JSON.parse(sessionStorage.getItem('user'));
+    const user = authHandler.getUser();
 
     // Security check
     if (!user || user.rol !== 'admin') {

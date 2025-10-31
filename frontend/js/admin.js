@@ -11,7 +11,7 @@ class NotificationSystem {
         this.notifications = JSON.parse(localStorage.getItem('adminNotifications')) || [];
         this.isPolling = false;
         this.pollingInterval = null;
-        this.currentAdmin = JSON.parse(sessionStorage.getItem('user'))?.username;
+        this.currentAdmin = authHandler.getUser()?.username;
         
         console.log('👤 Admin actual:', this.currentAdmin);
         console.log('📋 Notificaciones en storage:', this.notifications.length);
@@ -946,7 +946,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Hostname:', window.location.hostname);
     console.log('API URL:', API_BASE_URL);
 
-    const user = JSON.parse(sessionStorage.getItem('user'));
+    const user = authHandler.getUser();
 
     // Si no hay usuario o el rol no es 'admin', lo redirige a la página de login
     if (!user || user.rol !== 'admin') {

@@ -9,13 +9,8 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <script>
-        const user = sessionStorage.getItem('user');
-        if (!user) {
-            alert('Debes iniciar sesión para acceder al asistente.');
-            window.location.href = '/';
-        }
-    </script>
+    <!-- Auth Handler de Cognito - DEBE IR PRIMERO -->
+    <script src="js/auth-handler.js"></script>
 
     <!-- Input oculto para archivos -->
     <input type="file" id="fileInput" multiple style="display: none;" accept=".txt,.pdf,.png,.jpg,.jpeg,.gif,.doc,.docx,.xls,.xlsx,.zip,.rar">

@@ -86,6 +86,9 @@
     </style>
 </head>
 <body>
+    <!-- Auth Handler de Cognito - DEBE IR PRIMERO -->
+    <script src="js/auth-handler.js"></script>
+    
     <div class="admin-container">
         <!-- Sidebar -->
         <aside class="sidebar">
@@ -348,10 +351,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 async function initializeAdminPanel() {
-    // Verificar autenticación
-    const userData = sessionStorage.getItem('user');
-    if (!userData) {
-        window.location.href = '/';
+    // Verificar autenticación con Cognito
+    const userData = localStorage.getItem('user');
+    if (!userData || !authHandler.isAuthenticated()) {
+        authHandler.redirectToLogin();
         return;
     }
     

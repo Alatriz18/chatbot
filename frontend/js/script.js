@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             attachedFiles: [] //  NUEVO: Array para archivos durante la descripción
         }
     };
-    const loggedInUser = JSON.parse(sessionStorage.getItem('user'));
+    const loggedInUser = authHandler.getUser();
     const sessionId = `${loggedInUser.username}-${Date.now()}`;
 
     // --- ELEMENTOS DEL DOM ---
